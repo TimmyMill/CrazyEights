@@ -13,13 +13,13 @@ public class Hand {
 
     public static ArrayList<Card> dealHand() {
         hand = new ArrayList<>();
-        System.out.println("Cards drawn: ");
+//        System.out.println("Cards drawn: ");
         for (int i = 0; i < 5; i++) {
             C = deck.drawCard();
-            System.out.println(C.toString());
+//            System.out.println(C.toString());
             hand.add(C);
         }
-        deck.getTotalCards();
+//        deck.getTotalCards();
         return hand;
     }
 }

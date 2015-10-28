@@ -8,5 +8,5 @@ public class ComputerPlayer extends Players {
     }
 
     @Override
-    public String toString() {return "Player: " + name + " your hand: " + hand;}
+    public String toString() {return name + "'s hand: " + hand;}
 }
