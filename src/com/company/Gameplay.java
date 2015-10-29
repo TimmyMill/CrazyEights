@@ -9,6 +9,7 @@ public class Gameplay {
     public static ArrayList<Players> playersList;     /* Initiate an ArrayList to store players */
     public static ArrayList<Card> discard;            /* ArrayList for discarded cards */
     public static int cardChoice;
+    public static Card stockCard;
 
 
     /*
@@ -34,9 +35,9 @@ public class Gameplay {
         ComputerPlayer com = new ComputerPlayer("Computer", comHand);
         playersList.add(com);
 
-        Card startCard = Hand.deck.drawCard();
+//        startCard = Hand.deck.drawCard();
 //        System.out.println(startCard);
-        discard.add(startCard);
+//        discard.add(startCard);
 //        int size = Hand.deck.getTotalCards();
 //        System.out.println("Cards left in deck: " + size);
 //        size = Hand.deck.getTotalCards();
@@ -58,6 +59,10 @@ public class Gameplay {
 
         Scanner in = new Scanner(System.in);
         String choice = in.nextLine();
+        while (choice == null || ! choice.matches("[1-3]")) {
+            System.out.println("Invalid selection");
+            choice = in.nextLine();
+        }
         return Integer.parseInt(choice);
     }
 
@@ -67,11 +72,13 @@ public class Gameplay {
 
     public static void playerTurn() {
         Scanner in = new Scanner(System.in);
-        Card playCard = discard.get(discard.size() - 1); // Grabs the last element of the discard pile
-        System.out.println(playCard);
+        Card startCard = Hand.deck.drawCard();
+        discard.add(startCard);
         for (Players p : playersList) {
             System.out.println(p.getName() + "'s Turn");
-            while (true) {
+            while (! p.getHand().isEmpty()) {                /* Loop until a player's hand is empty */
+                stockCard = discard.get(discard.size() - 1); /* Grabs the last element of the discard pile */
+                System.out.println(stockCard);
                 int choice = playerMenu();
                 if (choice == 1) {
                     Card playerDraws = Hand.deck.drawCard();
@@ -100,10 +107,26 @@ public class Gameplay {
      */
 
     public static void playCard() {
-        Players p1 = playersList.get(0);
+        Players p1 = playersList.get(0); // Get first player
+        /*
+         * Look through the first players hand
+         * Find the element that corresponds to the user's choice
+         */
         for (int i = 0; i < p1.getHand().size(); i++) {
             if (cardChoice == (i + 1)) {
-                System.out.println("Playing the " + p1.getHand().get(i));
+                Card j = p1.getHand().get(i);
+                int r = j.getRank();
+                int s = j.getSuit();
+                int r1 = stockCard.getRank();
+                int s1 = stockCard.getSuit();
+                if (r == r1 || s == s1) {
+                    System.out.println("Playing the " + p1.getHand().get(i));
+                    discard.add(p1.getHand().get(i));
+                    p1.getHand().remove(i);
+                }
+                else {
+                    System.out.println("You cannot play this card");
+                }
             }
         }
     }
