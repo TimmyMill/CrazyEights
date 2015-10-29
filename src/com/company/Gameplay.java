@@ -35,14 +35,6 @@ public class Gameplay {
         ComputerPlayer com = new ComputerPlayer("Computer", comHand);
         playersList.add(com);
 
-//        startCard = Hand.deck.drawCard();
-//        System.out.println(startCard);
-//        discard.add(startCard);
-//        int size = Hand.deck.getTotalCards();
-//        System.out.println("Cards left in deck: " + size);
-//        size = Hand.deck.getTotalCards();
-//        System.out.println("Cards left in deck: " + size);
-
         return playersList;
     }
 
@@ -119,7 +111,16 @@ public class Gameplay {
                 int s = j.getSuit();
                 int r1 = stockCard.getRank();
                 int s1 = stockCard.getSuit();
-                if (r == r1 || s == s1) {
+                if (r == 7) {
+                    String str = wildCard();            /* Use wildCard method */
+                    int wild = Integer.valueOf(str);    /* Turn the value of the string returned by wildCard into an int */
+                    Card eight = new Card(wild, r);     /* Create a new card using the wild value to change the suit to
+                                                        player's selection and the rank of 8 */
+                    discard.add(eight);                 /* Add the newly created card to the discard pile */
+                    p1.getHand().remove(i);             /* Remove the card from the player's hand */
+
+                }
+                else if (r == r1 || s == s1) {
                     System.out.println("Playing the " + p1.getHand().get(i));
                     discard.add(p1.getHand().get(i));
                     p1.getHand().remove(i);
@@ -129,6 +130,37 @@ public class Gameplay {
                 }
             }
         }
+    }
+
+    public static String wildCard() {
+        System.out.println("What suit would you like to change to?");
+        System.out.println("(1) Clubs");
+        System.out.println("(2) Diamonds");
+        System.out.println("(3) Hearts");
+        System.out.println("(4) Spades\n");
+        String str = in.next();
+        while ( ! str.matches("[1-4]")) {
+            System.out.println("Invalid selection");
+            str = in.next();
+        }
+        String suitChange = str;
+        if (str.matches("1")) {
+            System.out.println("Suit is changed to Clubs");
+            suitChange = "Clubs";
+        }
+        if (str.matches("2")) {
+            System.out.println("Suit is changed to Diamonds");
+            suitChange = "Diamonds";
+        }
+        if (str.matches("3")) {
+            System.out.println("Suit is changed to Hearts");
+            suitChange = "Hearts";
+        }
+        if (str.matches("4")) {
+            System.out.println("Suit is changed to Spades");
+            suitChange = "Spades";
+        }
+        return suitChange;
     }
 
 }
