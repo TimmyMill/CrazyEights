@@ -112,12 +112,11 @@ public class Gameplay {
                 int r1 = stockCard.getRank();
                 int s1 = stockCard.getSuit();
                 if (r == 7) {
-                    String str = wildCard();            /* Use wildCard method */
-                    int wild = Integer.valueOf(str);    /* Turn the value of the string returned by wildCard into an int */
-                    Card eight = new Card(wild, r);     /* Create a new card using the wild value to change the suit to
-                                                        player's selection and the rank of 8 */
-                    discard.add(eight);                 /* Add the newly created card to the discard pile */
-                    p1.getHand().remove(i);             /* Remove the card from the player's hand */
+                    int wild = wildCard();          /* Use wildCard method */
+                    Card eight = new Card(wild, r); /* Create a new card using the wild value to change the suit to
+                                                       player's selection and the rank of 8 */
+                    discard.add(eight);             /* Add the newly created card to the discard pile */
+                    p1.getHand().remove(i);         /* Remove the card from the player's hand */
 
                 }
                 else if (r == r1 || s == s1) {
@@ -132,7 +131,7 @@ public class Gameplay {
         }
     }
 
-    public static String wildCard() {
+    public static int wildCard() {
         System.out.println("What suit would you like to change to?");
         System.out.println("(1) Clubs");
         System.out.println("(2) Diamonds");
@@ -143,23 +142,20 @@ public class Gameplay {
             System.out.println("Invalid selection");
             str = in.next();
         }
-        String suitChange = str;
-        if (str.matches("1")) {
+        int suitChange = Integer.parseInt(str);
+        if (suitChange == 1) {
             System.out.println("Suit is changed to Clubs");
-            suitChange = "Clubs";
         }
-        if (str.matches("2")) {
+        if (suitChange == 2) {
             System.out.println("Suit is changed to Diamonds");
-            suitChange = "Diamonds";
         }
-        if (str.matches("3")) {
+        if (suitChange == 3) {
             System.out.println("Suit is changed to Hearts");
-            suitChange = "Hearts";
         }
-        if (str.matches("4")) {
+        if (suitChange == 4) {
             System.out.println("Suit is changed to Spades");
-            suitChange = "Spades";
         }
+        suitChange -= 1;
         return suitChange;
     }
 

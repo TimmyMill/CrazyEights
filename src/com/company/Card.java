@@ -7,7 +7,7 @@ public class Card {
      * Plurals of suit/rank denotes use of the array not the individual card.
      */
 
-    private static String[] suits = {"Clubs","Spades","Diamonds", "Hearts"};
+    private static String[] suits = {"Clubs","Diamonds", "Hearts", "Spades"};
     private String[] ranks = {"Ace", "2","3","4", "5", "6", "7", "8", "9","10","Jack","Queen","King"};
     /*
      * Constructor for card object
